@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=0.8">
+<link rel="shortcut icon" href="favicon.png" />
+<style>
+  
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #c70660;
+}
+
+a {
+  color: #ff7eba;
+}
+
+.us {
+    font-size:45px;
+}
+.main {
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-family: Arial, Helvetica;
+  font-size: 25px;
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+}
+
+.middle {
+  position: absolute;
+  width: 70%;
+ 
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+}
+
+hr {
+  margin: auto;
+  width: 40%;
+}
+
+#clockdiv{
+	font-family: sans-serif;
+	color: #fff;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+	font-size: 30px;
+}
+
+#clockdiv > div{
+	padding: 5px;
+	border-radius: 3px;
+	background: #ab0552;
+	display: inline-block;
+}
+
+#clockdiv div > span{
+	width: 50px;
+  line-height:50px;
+  padding: 0px;
+	border-radius: 3px;
+	background: #c70660;
+	display: inline-block;
+}
+
+.smalltext{
+	padding-top: 5px;
+	font-size: 16px;
+}
+</style>
+<head>
+    <title>Time until we meet</title>
+  </head>
+<body>
+
+<div class="main">
+  <div class="topleft">
+    <p></p>
+  </div>
+  <div class="middle">
+    <br>
+    <img src="hedgehog.png" height="100" width="100">
+    
+    <div id="quote" class="quote"></div>
+    
+    <h1><br>✈️</h1>
+    <div id="departure" style="font-size:30px">Loading...</div>
+    <br>
+    <h1>🏙</h1>
+    <div id="arrival" style="font-size:30px">Loading...</div>
+    <p class="us">👩‍🌾 👨‍🌾</p>
+
+  </div>
+  <div class="bottomleft">
+    <p></p>
+  </div>
+</div>
+
+<script>
+var quotes = [ 
+   "\"And ever has it been known that love knows not its own depth until the hour of separation.\"<br><br>-Khalil Gibran",
+   "\"Distance is not for the fearful, it is for the bold. It’s for those who are willing to spend a lot of time alone in exchange for a little time with the one they love. It’s for those knowing a good thing when they see it, even if they don’t see it nearly enough.\"<br><br>-Unknown",
+   "\"There is only one secure foundation: a genuine, deep relationship with Jesus Christ, which will carry you through any and all turmoil. No matter what storms are raging all around, you'll stand firm if you stand on His love.\"– some have to be funny...",
+   "\"Absence lessens moderate passions and increases great ones; as the wind extinguishes the taper, but kindles the burning dwelling\"<br>–Rochefoucauld.",
+   "\"All who would win joy, must share it. Happiness was born a twin.\" – Lord Byron",
+   "\"We cannot really love anybody with whom we never <a href=\"https://www.riosecreto.com/webimages/Galeriagrandes/fotos-galeria-web24.jpg\">laugh.</a>\"  – Agnes Repplier ",
+   "🎵<a href=\"https://1drv.ms/u/s!Ar9zGfl_BuFMgrltj9kVfWuzBxIg3A\">twelve-days.mp3</a> <br>(Password is 4 letters: What sound does the hedgehog make?)",
+   "\"Why not go out on a limb? Isn’t that where the fruit is?\" - Frank Scully",
+   "\"If our education had included training to bear unpleasantness and to let the first shock pass until we could think more calmly, many an unbearable situation would become manageable, and many a nervous illness avoided. There is proverb expressing this. It says, trouble is a tunnel thorough which we pass and not a brick wall against which we must break our head.\" -Claire Weekes",
+   "Hai. Help.",
+   "\" \"",
+   "When I get my hands on you 🎵",
+   "\" \"",
+   "\" \"",
+   "\" \"",
+   "\" \"",
+   "\" \"",
+   "\" \""
+]
+// Set the dates we're counting down to
+var dateArrival = new Date("Sep 20, 2019 23:00:00 GMT-0700").getTime();
+var dateDeparture = new Date("Sep 14, 2019 5:00:00 GMT+0100").getTime();
+
+//function to bold stuff
+function boldThis(txt) { return "<b>" + txt + "</b>"; }
+
+function setQuote(countDownDate, quoteArray, quoteId) {
+  // find the days left
+  var now = new Date().getTime();
+  var distance =  countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  //which quote today? the # of quotes minus days left (18 days left, quote 1, 17 quote 2.... 1 day left, quote n-1)
+  quoteNumber = quoteArray.length - days; 
+  document.getElementById(quoteId).innerHTML = quoteArray[quoteNumber-1];
+}
+
+function setCountDown(countDownDate, elementId, textOnDone)
+{ 
+setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+  
+  // Find the distance between now an the count down date
+  var distance = countDownDate - now;
+  
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+  var content =
+  `
+  <div id="clockdiv">
+  <div>
+    <span class="days">${days}</span>
+    <div class="smalltext">days</div>
+  </div>
+  <div>
+    <span class="hours">${hours}</span>
+    <div class="smalltext">hrs</div>
+  </div>
+  <div>
+    <span class="minutes">${minutes}</span>
+    <div class="smalltext">mins</div>
+  </div>
+  <div>
+    <span class="seconds">${seconds}</span>
+    <div class="smalltext">secs</div>
+  </div>
+</div>
+
+  `;
+ document.getElementById(elementId).innerHTML = content;
+  // If the count down is over, write some text 
+ if (distance < 0) {
+// clearInterval(countdownfunction);
+   document.getElementById(elementId).innerHTML = textOnDone;
+  }
+}, 1000); }
+
+setCountDown(dateDeparture, "departure", "You've left!")
+setCountDown(dateArrival, "arrival", "We've met!!!")
+setQuote(dateArrival, quotes, "quote")
+
+</script>
+
+</body>
+</html>
